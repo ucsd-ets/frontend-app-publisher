@@ -60,7 +60,9 @@ class ListField extends React.Component {
   }
 
   onChange(event, { newValue }) {
-    this.setState({ searchString: newValue });
+    if ( newValue !== undefined ) {
+      this.setState({ searchString: newValue });
+    }
   }
 
   onDragEnd(result) {
