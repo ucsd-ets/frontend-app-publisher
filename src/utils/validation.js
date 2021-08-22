@@ -94,31 +94,33 @@ const editCourseValidate = (values, props) => {
 
   // Validate all the fields required for submission in the submitting course run
   errors.course_runs = [];
-  values.course_runs.forEach((run) => {
-    const { key: targetKey } = targetRun;
-    const isSubmittingRun = run.key === targetKey;
-    if (isSubmittingRun) {
-      const runRequiredFields = ['transcript_languages', 'staff'];
-      const runErrors = {};
-      runRequiredFields.forEach((fieldName) => {
-        const value = run[fieldName];
-        if (value.length < 1) {
-          if (fieldName === 'transcript_languages') {
-            // redux-form field arrays expect errors to be in this shape
-            runErrors[fieldName] = { _error: requiredMessage };
-          } else {
-            runErrors[fieldName] = requiredMessage;
+  if(values.course_runs){
+    values.course_runs.forEach((run) => {
+      const { key: targetKey } = targetRun;
+      const isSubmittingRun = run.key === targetKey;
+      if (isSubmittingRun) {
+        const runRequiredFields = ['transcript_languages', 'staff'];
+        const runErrors = {};
+        runRequiredFields.forEach((fieldName) => {
+          const value = run[fieldName];
+          if (value.length < 1) {
+            if (fieldName === 'transcript_languages') {
+              // redux-form field arrays expect errors to be in this shape
+              runErrors[fieldName] = { _error: requiredMessage };
+            } else {
+              runErrors[fieldName] = requiredMessage;
+            }
           }
+        });
+        if (Object.keys(runErrors).length > 0) {
+          hasError = true;
         }
-      });
-      if (Object.keys(runErrors).length > 0) {
-        hasError = true;
+        errors.course_runs.push(runErrors);
+      } else {
+        errors.course_runs.push(null);
       }
-      errors.course_runs.push(runErrors);
-    } else {
-      errors.course_runs.push(null);
-    }
-  });
+    });
+  }
 
   // If needed, reset our state variable isSubmittingRunReview, which indicates that we are
   // validating for a submit-for-review (when we check required-for-submit properties).
