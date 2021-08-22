@@ -38,7 +38,7 @@ class ListField extends React.Component {
       newItemText,
     } = this.props;
 
-    if (value.length >= 3) {
+    if (value && value.length >= 3) {
       return fetchSuggestions(value).then((response) => {
         const results = response.data;
         results.push({
