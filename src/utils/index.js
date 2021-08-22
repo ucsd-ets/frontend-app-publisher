@@ -133,9 +133,11 @@ const isNonExemptChanged = (initialValues, currentFormValues, runKey) => {
     const { course_runs: currentRuns } = currentFormValues;
     if (currentRuns) {
       const index = currentRuns.findIndex(run => run.key === runKey);
-      return COURSE_RUN_NON_EXEMPT_FIELDS.some(field => (
-        initialRuns[index][field] !== currentRuns[index][field]
-      ));
+      if(index !== -1){
+        return COURSE_RUN_NON_EXEMPT_FIELDS.some(field => (
+          initialRuns[index][field] !== currentRuns[index][field]
+        ));
+      }
     }
     return false;
   }
