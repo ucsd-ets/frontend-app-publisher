@@ -10,6 +10,7 @@ class DiscoveryDataApiService {
     const queryParams = {
       editable: 1,
       exclude_utm: 1,
+      include_hidden_course_runs: 1,
     };
     const url = `${discoveryBaseUrl}/courses/${uuid}/`;
     return getAuthenticatedHttpClient().get(url, {
