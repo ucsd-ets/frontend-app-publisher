@@ -38,7 +38,7 @@ class ListField extends React.Component {
       newItemText,
     } = this.props;
 
-    if (value.length >= 3) {
+    if (value && value.length >= 3) {
       return fetchSuggestions(value).then((response) => {
         const results = response.data;
         results.push({
@@ -60,7 +60,9 @@ class ListField extends React.Component {
   }
 
   onChange(event, { newValue }) {
-    this.setState({ searchString: newValue });
+    if ( newValue !== undefined ) {
+      this.setState({ searchString: newValue });
+    }
   }
 
   onDragEnd(result) {

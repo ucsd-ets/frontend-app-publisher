@@ -235,7 +235,7 @@ export class BaseEditCourseForm extends React.Component {
       },
     } = collaboratorOptions;
 
-    const allCollaborators = formatCollaboratorOptions(allResults);
+    const allCollaborators = allResults ? formatCollaboratorOptions(allResults) : [];
 
     const parsedTypeOptions = courseOptionsData
       && parseCourseTypeOptions(courseOptionsData.type.type_options);
